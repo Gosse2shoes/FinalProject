@@ -26,8 +26,8 @@ namespace FinalProject
                     Console.WriteLine("4) Add a Category");
                     Console.WriteLine("5) Edit a Category");
                     Console.WriteLine("6) Display all Categories");
-                    Console.WriteLine("7) Display all Categories and their related active Product");
-                    Console.WriteLine("8) Display specific Categories and their related active Product");
+                    Console.WriteLine("7) Display all Categories and their related Product(s)");
+                    Console.WriteLine("8) Display specific Categories and their related Product(s)");
                     Console.WriteLine("Enter q to quit");
                     choice = Console.ReadLine();
                     Console.Clear();
@@ -141,7 +141,7 @@ namespace FinalProject
                         Category category = new Category();
                         Console.WriteLine("Enter a name for a new category: ");
                         category.CategoryName = Console.ReadLine();
-                        Console.WriteLine("Please enter the quantity per unit for the product: ");
+                        Console.WriteLine("Please enter a description of the category: ");
                         category.Description = Console.ReadLine();
 
                         ValidationContext context = new ValidationContext(category, null, null);
@@ -154,13 +154,13 @@ namespace FinalProject
                             if (db.Categories.Any(p => p.CategoryName == category.CategoryName))
                             {
                                 isVaild = false;
-                                results.Add(new ValidationResult("Product name exists", new string[] { "ProductName" }));
+                                results.Add(new ValidationResult("Category name exists", new string[] { "CategoryName" }));
                             }
                             else
                             {
                                 logger.Info("Validation passed");
                                 db.AddCategory(category);
-                                logger.Info("Product added - {name}", category.CategoryName);
+                                logger.Info("Category added - {name}", category.CategoryName);
                             }
                         }
                         if (!isVaild)
@@ -183,7 +183,7 @@ namespace FinalProject
                             {
                                 UpdateCategory.CategoryID = category.CategoryID;
                                 db.EditCategory(UpdateCategory);
-                                logger.Info("Product (id: {ProductID}) updated", UpdateCategory.CategoryID);
+                                logger.Info("CategoryID (id: {CategoryID}) updated", UpdateCategory.CategoryID);
                             }
                         }
                     }
